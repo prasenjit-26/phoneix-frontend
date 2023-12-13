@@ -7,14 +7,14 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import logoImg from "../../assets/images/phoenix-group.png";
 
 const TitleText = styled.p`
-  font-size: 48px;
+  font-size: 44px;
   font-family: "Open Sans";
   font-weight: 400;
   color: rgba(51, 51, 51, 1);
   margin: 0px;
 `;
 const SubTitleText = styled.p`
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Open Sans";
   font-weight: 400;
   color: rgba(51, 51, 51, 1);
