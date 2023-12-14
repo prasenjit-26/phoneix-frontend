@@ -8,6 +8,7 @@ import Home from "./conatainers/Home";
 import StorePage from "./conatainers/Store";
 import CreatePRNPage from "./conatainers/CreatePRN";
 import QcPage from "./conatainers/QC";
+import PRNPage from "./conatainers/PRN";
 import SalesPage from "./conatainers/Sales";
 import LoginPage from "./conatainers/Login";
 
@@ -65,6 +66,7 @@ function App() {
           <Route path="/store" element={<StorePage />} />
           <Route path="/qc" element={<QcPage />} />
           <Route path="/sales" element={<SalesPage />} />
+          <Route path="/prn" element={<PRNPage />} />
           <Route path="/prn/create" element={<CreatePRNPage />} />
         </Routes>
       </BrowserRouter>
