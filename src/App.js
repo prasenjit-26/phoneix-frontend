@@ -8,7 +8,10 @@ import Home from "./conatainers/Home";
 import StorePage from "./conatainers/Store";
 import CreatePRNPage from "./conatainers/CreatePRN";
 import QcPage from "./conatainers/QC";
+import GIIRPage from "./conatainers/GIIR";
 import PRNPage from "./conatainers/PRN";
+import POPage from "./conatainers/PO";
+import GRNPage from "./conatainers/GRN";
 import SalesPage from "./conatainers/Sales";
 import LoginPage from "./conatainers/Login";
 
@@ -67,6 +70,9 @@ function App() {
           <Route path="/qc" element={<QcPage />} />
           <Route path="/sales" element={<SalesPage />} />
           <Route path="/prn" element={<PRNPage />} />
+          <Route path="/po" element={<POPage />} />
+          <Route path="/giir" element={<GIIRPage />} />
+          <Route path="/grn" element={<GRNPage />} />
           <Route path="/prn/create" element={<CreatePRNPage />} />
         </Routes>
       </BrowserRouter>
