@@ -7,11 +7,14 @@ import Header from "./components/Header";
 import Home from "./conatainers/Home";
 import StorePage from "./conatainers/Store";
 import CreatePRNPage from "./conatainers/CreatePRN";
+import CreateGRNPage from "./conatainers/CreateGRN";
+import CreatePOPage from "./conatainers/CreatePO";
 import QcPage from "./conatainers/QC";
 import GIIRPage from "./conatainers/GIIR";
 import PRNPage from "./conatainers/PRN";
 import POPage from "./conatainers/PO";
 import GRNPage from "./conatainers/GRN";
+import CreateGIIRPage from "./conatainers/CreateGIIR";
 import SalesPage from "./conatainers/Sales";
 import LoginPage from "./conatainers/Login";
 
@@ -74,6 +77,9 @@ function App() {
           <Route path="/giir" element={<GIIRPage />} />
           <Route path="/grn" element={<GRNPage />} />
           <Route path="/prn/create" element={<CreatePRNPage />} />
+          <Route path="/grn/create" element={<CreateGRNPage />} />
+          <Route path="/po/create" element={<CreatePOPage />} />
+          <Route path="/giir/create" element={<CreateGIIRPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

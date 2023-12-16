@@ -5,8 +5,6 @@ import { styled as muiStyled } from "@mui/material/styles";
 import Select from "@mui/material/Select";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
-import Button from "@mui/material/Button";
-import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
@@ -28,17 +26,6 @@ const Accordion = muiStyled((props) => (
   },
 }));
 
-const VisuallyHiddenInput = muiStyled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
 const AccordionSummary = muiStyled((props) => (
   <MuiAccordionSummary
     expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
@@ -71,7 +58,7 @@ const AccordionDetails = muiStyled(MuiAccordionDetails)(({ theme }) => ({
   borderRadius: "0px 0px 8px 8px",
 }));
 
-export default function ProductGRNForm({
+export default function ProductPRNForm({
   category,
   product,
   quantity,
@@ -114,7 +101,7 @@ export default function ProductGRNForm({
       <AccordionDetails>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={4} lg={4}>
-            <FormControl fullWidth >
+            <FormControl fullWidth sx={{ maxWidth: "452px" }}>
               <InputLabel id="demo-simple-select-label">
                 Choose Category
               </InputLabel>
@@ -135,7 +122,7 @@ export default function ProductGRNForm({
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={12} md={4} lg={4}>
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ maxWidth: "452px" }}>
               <InputLabel id="demo-simple-select-label">Product</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -189,18 +176,6 @@ export default function ProductGRNForm({
                 ),
               }}
             />
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4}>
-            <Button
-              component="label"
-              variant="outlined"
-              fullWidth
-              sx={{height: '50px'}}
-              endIcon={<CameraAltOutlinedIcon />}
-            >
-              Upload Product Photo
-              <VisuallyHiddenInput type="file" />
-            </Button>
           </Grid>
         </Grid>
       </AccordionDetails>

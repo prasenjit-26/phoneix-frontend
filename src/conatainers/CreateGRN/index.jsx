@@ -5,10 +5,17 @@ import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import Grid from "@mui/material/Grid";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import { styled as muiStyled } from "@mui/material/styles";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import Container from "@mui/material/Container";
 
-import ProductPRNForm from "../../components/ProductPRNForm";
+import ProductGRNForm from "../../components/ProductGRNForm";
 
 const TitleText = styled.p`
   font-size: 44px;
@@ -24,7 +31,18 @@ const SubTitleText = styled.p`
   color: rgba(51, 51, 51, 1);
   margin: 0px;
 `;
-export default function CreatePRN() {
+const VisuallyHiddenInput = muiStyled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
+export default function CreateGRN() {
   const [products, setProducts] = React.useState([
     {
       category: "",
@@ -74,15 +92,58 @@ export default function CreatePRN() {
             <ArrowBackOutlinedIcon />
           </IconButton>
         </div>
-        <TitleText>PRN</TitleText>
-        <SubTitleText>
-          Kindly fill the details to create a Product Requisition Note.
-        </SubTitleText>
+        <TitleText>GRN</TitleText>
+        <SubTitleText>Kindly fill the details to create a GRN.</SubTitleText>
       </Stack>
-      <Stack spacing={3}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={12} md={4} lg={4}>
+          <Button
+            component="label"
+            variant="outlined"
+            fullWidth
+            endIcon={<CameraAltOutlinedIcon />}
+          >
+            Upload Invoice
+            <VisuallyHiddenInput type="file" />
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} lg={4}>
+          <Button
+            component="label"
+            variant="outlined"
+            fullWidth
+            endIcon={<CameraAltOutlinedIcon />}
+          >
+            Upload Goods Received
+            <VisuallyHiddenInput type="file" />
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} lg={4}>
+          <FormControl fullWidth sx={{ maxWidth: "452px" }}>
+            <InputLabel id="demo-simple-select-label">
+              Choose Supplier
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              // value={category}
+              label="Choose Supplier"
+              // onChange={handleSelectCategory}
+            >
+              <MenuItem value={10}>Create PRN</MenuItem>
+              <MenuItem value={20}>View PRNs</MenuItem>
+              <MenuItem value={30}>View POs</MenuItem>
+              <MenuItem value={40}>Create GRN</MenuItem>
+              <MenuItem value={50}>View GRNs</MenuItem>
+              <MenuItem value={60}>View GIIRs</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+      <Stack spacing={3} sx={{ marginTop: "20px" }}>
         {products &&
           products.map((product) => (
-            <ProductPRNForm
+            <ProductGRNForm
               {...product}
               delteProduct={delteProduct}
               selectProductValue={selectProductValue}
