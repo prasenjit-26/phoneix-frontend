@@ -19,6 +19,7 @@ export default function Login() {
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Stack spacing={3}>
             <InfoComponent
+              isShowLogo
               title="Login / Authenticate"
               subtitle="Kindly login to authenticate"
             />

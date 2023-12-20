@@ -29,6 +29,7 @@ function Home() {
           <Stack spacing={3}>
             <InfoComponent
               title="Which Department?"
+              isShowLogo
               subtitle="Choose your department to proceed"
             />
             <FormControl fullWidth sx={{ maxWidth: "452px" }}>

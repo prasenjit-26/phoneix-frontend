@@ -3,6 +3,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -16,6 +17,7 @@ import InfoComponent from "../../components/InfoComponent";
 import storedepartmentImage from "../../assets/images/storedepartment.png";
 
 export default function Store() {
+  const navigate = useNavigate();
   const [action, setAction] = React.useState("");
 
   const handleChange = (event) => {
@@ -28,6 +30,7 @@ export default function Store() {
           <Stack spacing={3}>
             <InfoComponent
               showBackButton
+              isShowLogo
               title="Welcome to Store"
               subtitle="Select the action you would like to perform"
             />
@@ -42,12 +45,12 @@ export default function Store() {
                 label="Choose Action"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Create PRN</MenuItem>
-                <MenuItem value={20}>View PRNs</MenuItem>
-                <MenuItem value={30}>View POs</MenuItem>
-                <MenuItem value={40}>Create GRN</MenuItem>
-                <MenuItem value={50}>View GRNs</MenuItem>
-                <MenuItem value={60}>View GIIRs</MenuItem>
+                <MenuItem value="/prn/create">Create PRN</MenuItem>
+                <MenuItem value="/prn">View PRNs</MenuItem>
+                <MenuItem value="/po">View POs</MenuItem>
+                <MenuItem value="/grn/create">Create GRN</MenuItem>
+                <MenuItem value="/grn">View GRNs</MenuItem>
+                <MenuItem value="/giir">View GIIRs</MenuItem>
               </Select>
             </FormControl>
             <Button
@@ -55,6 +58,7 @@ export default function Store() {
               size="large"
               disabled={action === ""}
               endIcon={<ArrowForwardIcon />}
+              onClick={() => navigate(action)}
               sx={{ maxWidth: "312px" }}
             >
               Proceed

@@ -3,12 +3,13 @@ import TextField from "@mui/material/TextField";
 import { styled as muiStyled } from "@mui/material/styles";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import EditIcon from "@mui/icons-material/Edit";
+import DoneIcon from "@mui/icons-material/Done";
 
 import InfoComponent from "../../components/InfoComponent";
 
@@ -25,7 +26,8 @@ const StyledFormControlLabel = muiStyled((props) => (
   },
 }));
 
-export default function CreateGIIR() {
+export default function ViewGIIR() {
+  const [isDisabled, setDisabled] = React.useState(true);
   const [productData, setProductData] = React.useState({
     invoice: "Invoice-1",
     supplier: {
@@ -50,7 +52,7 @@ export default function CreateGIIR() {
     proteinContent: "3",
     saltContent: "3",
     ashValue: "1",
-    remarks: "",
+    remarks: "Handle Remarks here",
     isApporved: true,
     isRejected: false,
   });
@@ -75,9 +77,10 @@ export default function CreateGIIR() {
   return (
     <Container maxWidth="xl" sx={{ marginBottom: "40px" }}>
       <InfoComponent
+        subtitle="Kindly update the details to update GIIR"
         title="GIIR"
-        subtitle="Kindly fill the details to create GIIR."
         showBackButton
+        backRedirectLink="/store"
       />
       <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
         <Grid item xs={12} sm={12} md={4} lg={4}>
@@ -138,6 +141,7 @@ export default function CreateGIIR() {
             label="Colour Appearance"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             onChange={(event) => handleChange(event, "colorAppreance")}
             value={productData.colorAppreance}
           />
@@ -148,6 +152,7 @@ export default function CreateGIIR() {
             label="pH"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             onChange={(event) => handleChange(event, "pH")}
             value={productData.pH}
           />
@@ -158,6 +163,7 @@ export default function CreateGIIR() {
             label="Brix %"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             value={productData.brix}
             onChange={(event) => handleChange(event, "brix")}
           />
@@ -168,6 +174,7 @@ export default function CreateGIIR() {
             label="Moisture Content"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             value={productData.moistureContent}
             onChange={(event) => handleChange(event, "moistureContent")}
           />
@@ -179,6 +186,7 @@ export default function CreateGIIR() {
             label="Nitrogen Content"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             value={productData.nitrogenContent}
             onChange={(event) => handleChange(event, "nitrogenContent")}
           />
@@ -189,6 +197,7 @@ export default function CreateGIIR() {
             label="Protein Content"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             value={productData.proteinContent}
             onChange={(event) => handleChange(event, "proteinContent")}
           />
@@ -199,6 +208,7 @@ export default function CreateGIIR() {
             label="Salt Content"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             value={productData.saltContent}
             onChange={(event) => handleChange(event, "saltContent")}
           />
@@ -209,6 +219,7 @@ export default function CreateGIIR() {
             label="Ash Value"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             value={productData.ashValue}
             onChange={(event) => handleChange(event, "ashValue")}
           />
@@ -217,6 +228,7 @@ export default function CreateGIIR() {
           <FormControl>
             <RadioGroup
               row
+              disabled={isDisabled}
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
               onChange={handleRadioChange}
@@ -250,6 +262,7 @@ export default function CreateGIIR() {
             fullWidth
             multiline
             rows={3}
+            disabled={isDisabled}
             value={productData.remarks}
           />
         </Grid>
@@ -260,14 +273,27 @@ export default function CreateGIIR() {
           flexDirection: "column",
         }}
       >
-        <Button
-          variant="contained"
-          size="large"
-          endIcon={<AddIcon />}
-          sx={{ maxWidth: "312px" }}
-        >
-          Create
-        </Button>
+        {isDisabled ? (
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setDisabled(false)}
+            endIcon={<EditIcon />}
+            sx={{ maxWidth: "312px" }}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setDisabled(true)}
+            endIcon={<DoneIcon />}
+            sx={{ maxWidth: "312px" }}
+          >
+            Update
+          </Button>
+        )}
       </div>
     </Container>
   );

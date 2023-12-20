@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
@@ -98,17 +98,18 @@ const products = [
     quantityRequestd: 8,
   },
 ];
-export default function ProductGRNForm({ id, onDeletProduct, updateProductsData }) {
+export default function ProductGRNForm({
+  id,
+  onDeletProduct,
+  updateProductsData,
+  isDisabled,
+  selectedProductId,
+  quantityTimeLine,
+}) {
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedProduct, setSelectedProduct] = React.useState(products[0]);
-  const [quantityDetails, setQuantityDetails] = React.useState([
-    {
-      quantityId: 1,
-      quantity: "0",
-      unit: "",
-      deliveryDate: dayjs(new Date()),
-    },
-  ]);
+  const [quantityDetails, setQuantityDetails] =
+    React.useState(quantityTimeLine);
   const splitProductQuantity = () => {
     setQuantityDetails((quantaties) =>
       quantaties.concat([
@@ -186,6 +187,17 @@ export default function ProductGRNForm({ id, onDeletProduct, updateProductsData 
     color = "#24B73C";
     text = "PO Quantity matches PRN";
   }
+  useEffect(() => {
+    if (selectedProductId) {
+      const product = products.find(
+        (product) => product.id === selectedProductId
+      );
+      if (product && product.id !== selectedProduct.id) {
+        setSelectedProduct(product);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Accordion
       expanded={expanded === "panel1"}
@@ -194,20 +206,25 @@ export default function ProductGRNForm({ id, onDeletProduct, updateProductsData 
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
         Product - 1
         <Stack direction="row" spacing={2}>
-          <Button
-            onClick={splitProductQuantity}
-            startIcon={<AddIcon />}
-            variant="text"
-            sx={{ color: "#fff" }}
-          >
-            Split
-          </Button>
-          <IconButton
-            sx={{ width: "fit-content" }}
-            onClick={() => onDeletProduct(id)}
-          >
-            <DeleteIcon sx={{ color: "#f1f1f1" }} />
-          </IconButton>
+          {!isDisabled && (
+            <Button
+              onClick={splitProductQuantity}
+              startIcon={<AddIcon />}
+              variant="text"
+              disabled={isDisabled || false}
+              sx={{ color: "#fff" }}
+            >
+              Split
+            </Button>
+          )}
+          {!isDisabled && (
+            <IconButton
+              sx={{ width: "fit-content" }}
+              onClick={() => onDeletProduct(id)}
+            >
+              <DeleteIcon sx={{ color: "#f1f1f1" }} />
+            </IconButton>
+          )}
         </Stack>
       </AccordionSummary>
       <AccordionDetails>
@@ -220,6 +237,7 @@ export default function ProductGRNForm({ id, onDeletProduct, updateProductsData 
                 id="demo-simple-select"
                 value={selectedProduct.id}
                 label="Product"
+                disabled={isDisabled || false}
                 onChange={handleSelectProduct}
               >
                 {products.map((product) => (
@@ -256,6 +274,7 @@ export default function ProductGRNForm({ id, onDeletProduct, updateProductsData 
                   label="Product Quantity"
                   variant="outlined"
                   fullWidth
+                  disabled={isDisabled || false}
                   value={quantity.quantity}
                   onChange={(event) =>
                     handleQuantity(event, quantity.quantityId)
@@ -278,6 +297,7 @@ export default function ProductGRNForm({ id, onDeletProduct, updateProductsData 
                             value={quantity.unit}
                             defaultValue="kg"
                             label="Product"
+                            disabled={isDisabled || false}
                             onChange={(event) =>
                               handleSelectUnit(event, quantity.quantityId)
                             }
@@ -303,10 +323,12 @@ export default function ProductGRNForm({ id, onDeletProduct, updateProductsData 
                       sx={{ width: "100%" }}
                       label="Delivery Date"
                       value={quantity.deliveryDate}
+                      disabled={isDisabled || false}
                       // onChange={(newValue) => setValue(newValue)}
                     />
                     {index > 0 && (
                       <IconButton
+                        disabled={isDisabled || false}
                         onClick={() => deleteQuantity(quantity.quantityId)}
                       >
                         <DeleteOutlineOutlinedIcon sx={{ color: "#D34836" }} />

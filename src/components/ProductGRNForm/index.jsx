@@ -71,6 +71,46 @@ const AccordionDetails = muiStyled(MuiAccordionDetails)(({ theme }) => ({
   borderRadius: "0px 0px 8px 8px",
 }));
 
+const categories = [
+  {
+    id: "category-1",
+    name: "Category 1",
+  },
+  {
+    id: "category-2",
+    name: "Category 2",
+  },
+  {
+    id: "category-3",
+    name: "Category 3",
+  },
+  {
+    id: "category-4",
+    name: "Category 4",
+  },
+];
+const products = [
+  {
+    id: "product-1",
+    name: "Product - 1",
+    quantityRequestd: 8,
+  },
+  {
+    id: "product-3",
+    name: "Product - 3",
+    quantityRequestd: 6,
+  },
+  {
+    id: "product-2",
+    name: "Product - 2",
+    quantityRequestd: 2,
+  },
+  {
+    id: "product-4",
+    name: "Product - 4",
+    quantityRequestd: 8,
+  },
+];
 export default function ProductGRNForm({
   category,
   product,
@@ -79,6 +119,7 @@ export default function ProductGRNForm({
   productid,
   delteProduct,
   selectProductValue,
+  isDisabled,
 }) {
   const [expanded, setExpanded] = React.useState("panel1");
 
@@ -104,17 +145,19 @@ export default function ProductGRNForm({
     >
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
         Product - 1
-        <IconButton
-          sx={{ width: "fit-content" }}
-          onClick={() => delteProduct(productid)}
-        >
-          <DeleteIcon sx={{ color: "#f1f1f1" }} />
-        </IconButton>
+        {!isDisabled && (
+          <IconButton
+            sx={{ width: "fit-content" }}
+            onClick={() => delteProduct(productid)}
+          >
+            <DeleteIcon sx={{ color: "#f1f1f1" }} />
+          </IconButton>
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={4} lg={4}>
-            <FormControl fullWidth >
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
                 Choose Category
               </InputLabel>
@@ -122,15 +165,13 @@ export default function ProductGRNForm({
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={category}
+                disabled={isDisabled || false}
                 label="Choose Category"
                 onChange={handleSelectCategory}
               >
-                <MenuItem value={10}>Create PRN</MenuItem>
-                <MenuItem value={20}>View PRNs</MenuItem>
-                <MenuItem value={30}>View POs</MenuItem>
-                <MenuItem value={40}>Create GRN</MenuItem>
-                <MenuItem value={50}>View GRNs</MenuItem>
-                <MenuItem value={60}>View GIIRs</MenuItem>
+                {categories.map((category) => (
+                  <MenuItem value={category.id}>{category.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -141,15 +182,13 @@ export default function ProductGRNForm({
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={product}
+                disabled={isDisabled || false}
                 label="Product"
                 onChange={handleSelectProduct}
               >
-                <MenuItem value={10}>Create PRN</MenuItem>
-                <MenuItem value={20}>View PRNs</MenuItem>
-                <MenuItem value={30}>View POs</MenuItem>
-                <MenuItem value={40}>Create GRN</MenuItem>
-                <MenuItem value={50}>View GRNs</MenuItem>
-                <MenuItem value={60}>View GIIRs</MenuItem>
+                {products.map((product) => (
+                  <MenuItem value={product.id}>{product.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -159,6 +198,7 @@ export default function ProductGRNForm({
               label="Product Quantity"
               variant="outlined"
               fullWidth
+              disabled={isDisabled || false}
               value={quantity}
               onChange={handleQuantity}
               InputProps={{
@@ -195,7 +235,8 @@ export default function ProductGRNForm({
               component="label"
               variant="outlined"
               fullWidth
-              sx={{height: '50px'}}
+              disabled={isDisabled || false}
+              sx={{ height: "50px" }}
               endIcon={<CameraAltOutlinedIcon />}
             >
               Upload Product Photo

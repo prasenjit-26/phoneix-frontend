@@ -21,28 +21,38 @@ const SubTitleText = styled.p`
   margin: 0px;
 `;
 
-export default function InfoComponent({ title, subtitle, showBackButton }) {
+export default function InfoComponent({
+  title,
+  subtitle,
+  showBackButton,
+  isShowLogo,
+  backRedirectLink
+}) {
   const navigate = useNavigate();
   return (
-    <Stack spacing={1} sx={{ marginBottom: "40px" }}>
-      {showBackButton && (
-        <div>
-          <IconButton
-            onClick={() => navigate("/")}
-            sx={{ width: "fit-content", marginBottom: "30px" }}
-          >
-            <ArrowBackOutlinedIcon />
-          </IconButton>
-        </div>
-      )}
-      <img
-        src={logoImg}
-        alt="Login"
-        width="100%"
-        style={{ maxWidth: "400px", marginBottom: "20px" }}
-      />
-      <TitleText>{title}</TitleText>
-      <SubTitleText>{subtitle}</SubTitleText>
-    </Stack>
+    <div style={{ marginTop: showBackButton ? "-115px" : "0px" }}>
+      <Stack spacing={1} sx={{ marginBottom: "40px" }}>
+        {showBackButton && (
+          <div>
+            <IconButton
+              onClick={() => navigate(backRedirectLink || "/")}
+              sx={{ width: "fit-content", marginBottom: "30px" }}
+            >
+              <ArrowBackOutlinedIcon />
+            </IconButton>
+          </div>
+        )}
+        {isShowLogo && (
+          <img
+            src={logoImg}
+            alt="Login"
+            width="100%"
+            style={{ maxWidth: "400px", marginBottom: "20px" }}
+          />
+        )}
+        <TitleText>{title}</TitleText>
+        <SubTitleText>{subtitle}</SubTitleText>
+      </Stack>
+    </div>
   );
 }

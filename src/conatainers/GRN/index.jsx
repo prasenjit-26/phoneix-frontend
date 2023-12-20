@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
@@ -11,15 +10,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import Stack from "@mui/material/Stack";
-import { useNavigate } from "react-router-dom";
 
-const TitleText = styled.p`
-  font-size: 44px;
-  font-family: "Open Sans";
-  font-weight: 400;
-  color: rgba(51, 51, 51, 1);
-  margin: 0px;
-`;
+import InfoComponent from "../../components/InfoComponent";
+
 const ProductTitle = styled.p`
   font-size: 24px;
   font-family: "Open Sans";
@@ -32,13 +25,6 @@ const ProducSubtTitle = styled.p`
   font-family: "Open Sans";
   font-weight: 400;
   color: #333;
-  margin: 0px;
-`;
-const SubTitleText = styled.p`
-  font-size: 20px;
-  font-family: "Open Sans";
-  font-weight: 400;
-  color: rgba(51, 51, 51, 1);
   margin: 0px;
 `;
 const PRNContainer = styled.div`
@@ -100,18 +86,12 @@ export default function PRN() {
   const navigate = useNavigate();
   return (
     <Container maxWidth="xl" sx={{ marginBottom: "40px" }}>
-      <Stack spacing={1} sx={{ marginBottom: "40px" }}>
-        <div>
-          <IconButton
-            onClick={() => navigate("/")}
-            sx={{ width: "fit-content", marginBottom: "30px" }}
-          >
-            <ArrowBackOutlinedIcon />
-          </IconButton>
-        </div>
-        <TitleText>GRN Listing</TitleText>
-        <SubTitleText>The following are the registered GRNs.</SubTitleText>
-      </Stack>
+      <InfoComponent
+        title="GRN Listing"
+        backRedirectLink="/store"
+        subtitle="The following are the registered GRNs."
+        showBackButton
+      />
       <Grid container spacing={2}>
         {grns.map((product) => (
           <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -159,6 +139,7 @@ export default function PRN() {
                       variant="contained"
                       size="large"
                       color="primary"
+                      onClick={() => navigate("/grn/22")}
                       fullWidth
                       endIcon={<EditIcon />}
                     >
@@ -168,6 +149,7 @@ export default function PRN() {
                       variant="contained"
                       size="large"
                       fullWidth
+                      onClick={() => navigate("/grn/22")}
                       color="secondary"
                       endIcon={<VisibilityIcon />}
                     >

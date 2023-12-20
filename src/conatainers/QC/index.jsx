@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
@@ -11,6 +12,7 @@ import InfoComponent from "../../components/InfoComponent";
 import storedepartmentImage from "../../assets/images/storedepartment.png";
 
 export default function Store() {
+  const navigate = useNavigate();
   return (
     <Container maxWidth="xl">
       <Grid container spacing={2}>
@@ -18,12 +20,14 @@ export default function Store() {
           <Stack spacing={3}>
             <InfoComponent
               showBackButton
+              isShowLogo
               title="Welcome to QC"
               subtitle="Select the action you would like to perform"
             />
             <Button
               variant="contained"
               size="large"
+              onClick={() => navigate("/rawmaterials")}
               endIcon={<InsertDriveFileOutlinedIcon />}
               sx={{ maxWidth: "312px" }}
             >
@@ -33,6 +37,7 @@ export default function Store() {
               variant="contained"
               size="large"
               color="secondary"
+              onClick={() => navigate("/giir")}
               endIcon={<DifferenceOutlinedIcon />}
               sx={{ maxWidth: "312px" }}
             >

@@ -4,26 +4,35 @@ import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import dayjs from "dayjs";
 import Container from "@mui/material/Container";
+import EditIcon from "@mui/icons-material/Edit";
+import DoneIcon from "@mui/icons-material/Done";
 
-import InfoComponent from "../../components/InfoComponent";
 import POSupplierForm from "../../components/POSupplierForm";
+import InfoComponent from "../../components/InfoComponent";
 
 export default function CreatePO() {
+  const [isDisabled, setDisabled] = React.useState(true);
   const [suppliers, setSuppliers] = React.useState([
     {
       id: "supplier1",
-      selectedSupplierId: "",
+      selectedSupplierId: "Supplier-2",
       products: [
         {
-          selectedProductId: "",
+          selectedProductId: "product-1",
           name: "",
           id: "product1",
-          quantityRequestd: "",
+          quantityRequestd: "8",
           quantityTimeLine: [
             {
               quantityId: 1,
-              quantity: "0",
-              unit: "",
+              quantity: "3",
+              unit: "ton",
+              deliveryDate: dayjs(new Date()),
+            },
+            {
+              quantityId: 2,
+              quantity: "5",
+              unit: "ton",
               deliveryDate: dayjs(new Date()),
             },
           ],
@@ -120,12 +129,12 @@ export default function CreatePO() {
     });
     setSuppliers([...updatedSupplier]);
   };
-  console.log('s', suppliers)
   return (
     <Container maxWidth="xl" sx={{ marginBottom: "40px" }}>
       <InfoComponent
         title="PO"
-        subtitle="Kindly fill the details to create a Product Order."
+        backRedirectLink="/store"
+        subtitle="Kindly fill the details to update a Product Order."
         showBackButton
       />
       <Stack spacing={3}>
@@ -133,6 +142,7 @@ export default function CreatePO() {
           suppliers.map((supplier) => (
             <POSupplierForm
               {...supplier}
+              isDisabled={isDisabled}
               delteSupplier={delteSupplier}
               delteProduct={deleteProduct}
               addProduct={addProduct}
@@ -151,18 +161,32 @@ export default function CreatePO() {
           size="large"
           onClick={addNewSupplier}
           endIcon={<AddIcon />}
+          disabled={isDisabled || false}
           sx={{ maxWidth: "312px", marginTop: "20px", marginBottom: "30px" }}
         >
           Another Supplier
         </Button>
-        <Button
-          variant="contained"
-          size="large"
-          endIcon={<AddIcon />}
-          sx={{ maxWidth: "312px" }}
-        >
-          Create
-        </Button>
+        {isDisabled ? (
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setDisabled(false)}
+            endIcon={<EditIcon />}
+            sx={{ maxWidth: "312px" }}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setDisabled(true)}
+            endIcon={<DoneIcon />}
+            sx={{ maxWidth: "312px" }}
+          >
+            Update
+          </Button>
+        )}
       </div>
     </Container>
   );

@@ -10,6 +10,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { styled as muiStyled } from "@mui/material/styles";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import Container from "@mui/material/Container";
+import EditIcon from "@mui/icons-material/Edit";
+import DoneIcon from "@mui/icons-material/Done";
 
 import ProductGRNForm from "../../components/ProductGRNForm";
 import InfoComponent from "../../components/InfoComponent";
@@ -25,16 +27,68 @@ const VisuallyHiddenInput = muiStyled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
-export default function CreateGRN() {
+const supplierDetails = [
+  {
+    name: "Supplier - 1",
+    id: "Supplier-1",
+    gst: "GHMPK2892",
+    phone: "7869793121",
+    email: "supplier@gmail.com",
+    address: "Block-17, Factory-12, Magarpatta City, Pune-406115",
+  },
+  {
+    name: "Supplier - 2",
+    id: "Supplier-2",
+    gst: "GHMPK2892",
+    phone: "7869793121",
+    email: "supplier@gmail.com",
+    address: "Block-17, Factory-12, Magarpatta City, Pune-406115",
+  },
+  {
+    name: "Supplier - 3",
+    id: "Supplier-3",
+    gst: "GHMPK2892",
+    phone: "7869793121",
+    email: "supplier@gmail.com",
+    address: "Block-17, Factory-12, Magarpatta City, Pune-406115",
+  },
+  {
+    name: "Supplier - 4",
+    id: "Supplier-4",
+    gst: "GHMPK2892",
+    phone: "7869793121",
+    email: "supplier@gmail.com",
+    address: "Block-17, Factory-12, Magarpatta City, Pune-406115",
+  },
+  {
+    name: "Supplier - 5",
+    id: "Supplier-5",
+    gst: "GHMPK2892",
+    phone: "7869793121",
+    email: "supplier@gmail.com",
+    address: "Block-17, Factory-12, Magarpatta City, Pune-406115",
+  },
+];
+export default function ViewGRN() {
+  const [isDisabled, setDisabled] = React.useState(true);
   const [products, setProducts] = React.useState([
     {
-      category: "",
-      product: "",
-      quantity: "",
-      unit: "",
+      category: "category-1",
+      product: "product-1",
+      quantity: "5",
+      unit: "ton",
       productid: "product1",
     },
   ]);
+  const [selectedSupplier, setSelctedSupplier] = React.useState(
+    supplierDetails[0]
+  );
+  const handleSelectSupplier = (event) => {
+    const supplier = supplierDetails.find(
+      (supplier) => supplier.id === event.target.value
+    );
+    setSelctedSupplier(supplier);
+  };
   const addNewProduct = () => {
     setProducts((product) =>
       product.concat([
@@ -67,7 +121,7 @@ export default function CreateGRN() {
     <Container maxWidth="xl" sx={{ marginBottom: "40px" }}>
       <InfoComponent
         title="GRN"
-        subtitle="Kindly fill the details to create a GRN."
+        subtitle="Update details to update a GRN."
         showBackButton
         backRedirectLink="/store"
       />
@@ -77,9 +131,10 @@ export default function CreateGRN() {
             component="label"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             endIcon={<CameraAltOutlinedIcon />}
           >
-            Upload Invoice
+            Invoice-1.jpg
             <VisuallyHiddenInput type="file" />
           </Button>
         </Grid>
@@ -88,6 +143,7 @@ export default function CreateGRN() {
             component="label"
             variant="outlined"
             fullWidth
+            disabled={isDisabled}
             endIcon={<CameraAltOutlinedIcon />}
           >
             Upload Goods Received
@@ -102,16 +158,14 @@ export default function CreateGRN() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              // value={category}
+              disabled={isDisabled}
+              value={selectedSupplier.id}
               label="Choose Supplier"
-              // onChange={handleSelectCategory}
+              onChange={handleSelectSupplier}
             >
-              <MenuItem value={10}>Create PRN</MenuItem>
-              <MenuItem value={20}>View PRNs</MenuItem>
-              <MenuItem value={30}>View POs</MenuItem>
-              <MenuItem value={40}>Create GRN</MenuItem>
-              <MenuItem value={50}>View GRNs</MenuItem>
-              <MenuItem value={60}>View GIIRs</MenuItem>
+              {supplierDetails.map((supplier) => (
+                <MenuItem value={supplier.id}>{supplier.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -121,7 +175,9 @@ export default function CreateGRN() {
           products.map((product) => (
             <ProductGRNForm
               {...product}
+              isDisabled={isDisabled}
               delteProduct={delteProduct}
+              disabled={isDisabled}
               selectProductValue={selectProductValue}
             />
           ))}
@@ -136,19 +192,33 @@ export default function CreateGRN() {
           variant="outlined"
           size="large"
           onClick={addNewProduct}
+          disabled={isDisabled}
           endIcon={<AddIcon />}
           sx={{ maxWidth: "312px", marginTop: "20px", marginBottom: "30px" }}
         >
           Another Product
         </Button>
-        <Button
-          variant="contained"
-          size="large"
-          endIcon={<AddIcon />}
-          sx={{ maxWidth: "312px" }}
-        >
-          Create
-        </Button>
+        {isDisabled ? (
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setDisabled(false)}
+            endIcon={<EditIcon />}
+            sx={{ maxWidth: "312px" }}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setDisabled(true)}
+            endIcon={<DoneIcon />}
+            sx={{ maxWidth: "312px" }}
+          >
+            Update
+          </Button>
+        )}
       </div>
     </Container>
   );

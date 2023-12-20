@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled as muiStyled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -104,11 +104,13 @@ const supplierDetails = [
 ];
 export default function POSupplierForm({
   id,
+  selectedSupplierId,
   products,
   delteSupplier,
   updateSupplierData,
   delteProduct,
   addProduct,
+  isDisabled,
 }) {
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedSupplier, setSelctedSupplier] = React.useState(
@@ -130,6 +132,17 @@ export default function POSupplierForm({
   const onDeletProduct = (productid) => {
     delteProduct(id, productid);
   };
+  useEffect(() => {
+    if (selectedSupplierId) {
+      const supplier = supplierDetails.find(
+        (supplier) => supplier.id === selectedSupplierId
+      );
+      if (supplier && supplier.id !== selectedSupplier.id) {
+        setSelctedSupplier(supplier);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Accordion
@@ -138,12 +151,14 @@ export default function POSupplierForm({
     >
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
         Supplier - 1
-        <IconButton
-          sx={{ width: "fit-content" }}
-          onClick={() => delteSupplier(id)}
-        >
-          <DeleteIcon sx={{ color: "#f1f1f1" }} />
-        </IconButton>
+        {!isDisabled && (
+          <IconButton
+            sx={{ width: "fit-content" }}
+            onClick={() => delteSupplier(id)}
+          >
+            <DeleteIcon sx={{ color: "#f1f1f1" }} />
+          </IconButton>
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
@@ -156,6 +171,7 @@ export default function POSupplierForm({
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={selectedSupplier ? selectedSupplier.id : null}
+                disabled={isDisabled || false}
                 label="Choose Category"
                 onChange={handleSelectSupplier}
               >
@@ -215,6 +231,7 @@ export default function POSupplierForm({
             products.map((product) => (
               <ProductPOForm
                 {...product}
+                isDisabled={isDisabled || false}
                 onDeletProduct={onDeletProduct}
                 updateProductsData={updateProductsData}
               />
@@ -225,6 +242,7 @@ export default function POSupplierForm({
           size="large"
           onClick={() => addProduct(id)}
           endIcon={<AddIcon />}
+          disabled={isDisabled || false}
           sx={{ maxWidth: "312px", marginTop: "20px", marginBottom: "30px" }}
         >
           Another Product

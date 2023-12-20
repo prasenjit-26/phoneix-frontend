@@ -1,22 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-import { useNavigate } from "react-router-dom";
 
-const TitleText = styled.p`
-  font-size: 44px;
-  font-family: "Open Sans";
-  font-weight: 400;
-  color: rgba(51, 51, 51, 1);
-  margin: 0px;
-`;
+import InfoComponent from "../../components/InfoComponent";
+
 const ProductTitle = styled.p`
   font-size: 36px;
   font-family: "Open Sans";
@@ -29,13 +22,6 @@ const ProducSubtTitle = styled.p`
   font-family: "Open Sans";
   font-weight: 400;
   color: #333;
-  margin: 0px;
-`;
-const SubTitleText = styled.p`
-  font-size: 20px;
-  font-family: "Open Sans";
-  font-weight: 400;
-  color: rgba(51, 51, 51, 1);
   margin: 0px;
 `;
 const PRNContainer = styled.div`
@@ -155,20 +141,12 @@ export default function PRN() {
   const navigate = useNavigate();
   return (
     <Container maxWidth="xl" sx={{ marginBottom: "40px" }}>
-      <Stack spacing={1} sx={{ marginBottom: "40px" }}>
-        <div>
-          <IconButton
-            onClick={() => navigate("/")}
-            sx={{ width: "fit-content", marginBottom: "30px" }}
-          >
-            <ArrowBackOutlinedIcon />
-          </IconButton>
-        </div>
-        <TitleText>PRN Listing</TitleText>
-        <SubTitleText>
-          Kindly choose the Purchase Requisition Note to create Purchase Order.
-        </SubTitleText>
-      </Stack>
+      <InfoComponent
+        title="PRN Listing"
+        backRedirectLink="/store"
+        subtitle="Kindly choose the Purchase Requisition Note to create Purchase Order."
+        showBackButton
+      />
       <Grid container spacing={2}>
         {pnrs.map((produt) => (
           <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -199,12 +177,14 @@ export default function PRN() {
                     variant="contained"
                     size="large"
                     color="secondary"
+                    onClick={() => navigate("/prn/22")}
                     endIcon={<VisibilityIcon />}
                   >
                     View PRN
                   </Button>
                   <Button
                     variant="contained"
+                    onClick={() => navigate("/po/create")}
                     size="large"
                     endIcon={<AddIcon />}
                   >

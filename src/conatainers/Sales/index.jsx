@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Visibility from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
@@ -10,12 +11,14 @@ import InfoComponent from "../../components/InfoComponent";
 import storedepartmentImage from "../../assets/images/storedepartment.png";
 
 export default function Store() {
+  const navigate = useNavigate();
   return (
     <Container maxWidth="xl">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Stack spacing={3}>
             <InfoComponent
+              isShowLogo
               showBackButton
               title="Welcome to Sales & Accounts"
               subtitle="Select the action you would like to perform"
@@ -23,6 +26,7 @@ export default function Store() {
             <Button
               variant="contained"
               size="large"
+              onClick={() => navigate("/prn")}
               endIcon={<Visibility />}
               sx={{ maxWidth: "312px" }}
             >
@@ -31,6 +35,7 @@ export default function Store() {
             <Button
               variant="contained"
               size="large"
+              onClick={() => navigate("/po")}
               color="secondary"
               endIcon={<Visibility />}
               sx={{ maxWidth: "312px" }}

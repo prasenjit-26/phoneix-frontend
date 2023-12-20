@@ -14,6 +14,11 @@ import GIIRPage from "./conatainers/GIIR";
 import PRNPage from "./conatainers/PRN";
 import POPage from "./conatainers/PO";
 import GRNPage from "./conatainers/GRN";
+import ViewGRNPage from "./conatainers/ViewGRN";
+import ViewGIIRPage from "./conatainers/ViewGIIR";
+import ViewPRNPage from "./conatainers/ViewPRN";
+import ViewPOPage from "./conatainers/ViewPO";
+import RawMaterialsPage from "./conatainers/RawMaterials";
 import CreateGIIRPage from "./conatainers/CreateGIIR";
 import SalesPage from "./conatainers/Sales";
 import LoginPage from "./conatainers/Login";
@@ -76,10 +81,16 @@ function App() {
           <Route path="/po" element={<POPage />} />
           <Route path="/giir" element={<GIIRPage />} />
           <Route path="/grn" element={<GRNPage />} />
+          <Route path="/grn" element={<GRNPage />} />
+          <Route path="/rawmaterials" element={<RawMaterialsPage />} />
+          <Route path="/grn/:id" element={<ViewGRNPage />} />
           <Route path="/prn/create" element={<CreatePRNPage />} />
+          <Route path="/prn/:id" element={<ViewPRNPage />} />
           <Route path="/grn/create" element={<CreateGRNPage />} />
           <Route path="/po/create" element={<CreatePOPage />} />
+          <Route path="/po/:id" element={<ViewPOPage />} />
           <Route path="/giir/create" element={<CreateGIIRPage />} />
+          <Route path="/giir/:id" element={<ViewGIIRPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
