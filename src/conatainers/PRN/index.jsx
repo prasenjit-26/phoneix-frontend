@@ -33,6 +33,7 @@ const PRNContainer = styled.div`
 const pnrs = [
   {
     id: "12122",
+    isFromSales: true,
     products: [
       {
         name: "CP",
@@ -53,6 +54,7 @@ const pnrs = [
     ],
   },
   {
+    isFromSales: false,
     id: "12122",
     products: [
       {
@@ -173,23 +175,60 @@ export default function PRN() {
                       <ProducSubtTitle>{product.quantity}</ProducSubtTitle>
                     </Stack>
                   ))}
-                  <Button
-                    variant="contained"
-                    size="large"
-                    color="secondary"
-                    onClick={() => navigate("/prn/22")}
-                    endIcon={<VisibilityIcon />}
-                  >
-                    View PRN
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => navigate("/po/create")}
-                    size="large"
-                    endIcon={<AddIcon />}
-                  >
-                    Create PO
-                  </Button>
+                  {produt.isFromSales ? (
+                    <Stack spacing={2}>
+                      <Stack spacing={2} direction="row">
+                        <Button
+                          variant="contained"
+                          fullWidth
+                          onClick={() => navigate("/prn/22")}
+                          size="large"
+                          endIcon={<AddIcon />}
+                        >
+                          Edit PRN
+                        </Button>
+                        <Button
+                          variant="contained"
+                          size="large"
+                          fullWidth
+                          color="secondary"
+                          onClick={() => navigate("/prn/22")}
+                          endIcon={<VisibilityIcon />}
+                        >
+                          View PRN
+                        </Button>
+                      </Stack>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        disabled
+                        onClick={() => navigate("/po/create")}
+                        size="large"
+                      >
+                        Pending PO Creation
+                      </Button>
+                    </Stack>
+                  ) : (
+                    <Stack spacing={2}>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="secondary"
+                        onClick={() => navigate("/prn/22")}
+                        endIcon={<VisibilityIcon />}
+                      >
+                        View PRN
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => navigate("/po/create")}
+                        size="large"
+                        endIcon={<AddIcon />}
+                      >
+                        Create PO
+                      </Button>
+                    </Stack>
+                  )}
                 </Stack>
               </Stack>
             </PRNContainer>
