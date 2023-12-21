@@ -12,7 +12,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import InfoComponent from "../../components/InfoComponent";
 
-import selectDepartmentImage from "../../assets/images/selectDepartment.png";
+import selectDepartmentImage from "../../assets/images/department.png";
 
 function Home() {
   const navigate = useNavigate();
